@@ -71,7 +71,7 @@ The code contains special libraries that are specific to the hardware device and
 Tasks are enabled using the Ticker library.
 ### IOT
 
-While IOT is *NOT* required for operation of the nano-hydroponics hardware, it facilitates modification of the limits that control its operation. A future extension of this project will allow direct control from a mobile phone or tablet. The IOT interface is used to set the control levels using the Wifi library and the Cayenne MQTT  interface. A Thingspeak account is required for this operation.
+While IOT is *NOT* required for operation of the nano-hydroponics hardware, it facilitates modification of the limits that control its operation. A future extension of this project will allow direct control from a mobile phone or tablet. The IOT interface is used to set the control levels using the Wifi library and the Cayenne MQTT  interface. A Cayenne account is required for this operation.
 ___
 
 
