@@ -343,8 +343,9 @@ let getLevels = async function () {
 
                 $bcc.parentNode.removeChild($bcc);
                 $msg.style.display = 'none';
-*/
+
                 async function onButtonClick() {
+                  */
                   try {
                     log('Requesting Bluetooth Device...');
                     const device = await navigator.bluetooth.requestDevice({
@@ -369,7 +370,7 @@ let getLevels = async function () {
                 }
 
 
-              
+/*              
                 while(true) {
                     try {
                         console.log('Starting battery read');
@@ -388,12 +389,14 @@ let getLevels = async function () {
                     }
                     await timeout(3000);
                 }
+
             })().catch((err) => {
                 console.error(err);
                 $msg.style.display = 'block';
                 $msg.innerHTML = err;
             });
         };
+      */
     </script>
   </body>
 </html>
