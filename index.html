@@ -132,7 +132,7 @@
         $bc.onclick = (e) => {
             e.preventDefault();
             console.log("Requesting Bluetooth Device with battery_service");
- /*         
+       
             (async function() {
                 let device;
                 if(navigator.userAgent.toLowerCase().includes('bluefy')) {
@@ -150,7 +150,7 @@
                 console.log("Connecting to GATT Server...");
                 let server = await device.gatt.connect();
 
-                console.log("rxService");
+                console.log("Service, Characteristic");
                 let rxService = await server.getPrimaryService('battery_service');
                 let rxCharacteristic = await rxService.getCharacteristic('battery_level');
 
@@ -342,14 +342,10 @@
                         await rxCharacteristic.writeValue(buffer);
                     }
                 };
-
+*/
                 $bcc.parentNode.removeChild($bcc);
                 $msg.style.display = 'none';
-
-
-
-
-/*              
+       
                 while(true) {
                     try {
                         console.log('Starting battery read');
@@ -359,7 +355,7 @@
 //                        await getLevels();
 //                        await requestReady();
                           const level = await rxCharacteristic.readValue();
-                          console.log('> Battery Level is ' + rxCharacteristic.value.getUint8(0) + '%');
+                          console.log('> Battery Level is ' + $bc.value.getUint8(0) + '%');
 //                          console.log('> Battery Level is ' + level + '%');
                     } catch(err) {
                         console.error(err);
@@ -374,36 +370,7 @@
                 $msg.style.display = 'block';
                 $msg.innerHTML = err;
             });
-        };
-      */
-
-
-                  try {
-                    log('Requesting Bluetooth Device...');
-                    const device = await navigator.bluetooth.requestDevice({
-                        filters: [{services: ['battery_service']}]});
-                
-                    log('Connecting to GATT Server...');
-                    const server = await device.gatt.connect();
-                
-                    log('Getting Battery Service...');
-                    const service = await server.getPrimaryService('battery_service');
-                
-                    log('Getting Battery Level Characteristic...');
-                    const characteristic = await service.getCharacteristic('battery_level');
-                
-                    log('Reading Battery Level...');
-                    const value = await characteristic.readValue();
-                
-                    log('> Battery Level is ' + value.getUint8(0) + '%');
-                  } catch(error) {
-                    log('Argh! ' + error);
-                  }
-
-        };
-
-
-      
+        };    
     </script>
   </body>
 </html>
