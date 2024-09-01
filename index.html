@@ -154,7 +154,7 @@
                     });
                 }
                 console.log("gatt.connect");
-      l         let server = await device.gatt.connect();
+                let server = await device.gatt.connect();
 
                 let rxService = await server.getPrimaryService(0x180F);
                 let rxCharacteristic = await rxService.getCharacteristic(0x2A19);
