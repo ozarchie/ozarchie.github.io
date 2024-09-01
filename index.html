@@ -137,6 +137,7 @@
         
         $bc.onclick = (e) => {
             e.preventDefault();
+            console.log("checking bluetooth for battery_service");
             
             (async function() {
                 let device;
@@ -152,7 +153,8 @@
                         optionalServices: [0x180F]
                     });
                 }
-                let server = await device.gatt.connect();
+                console.log("gatt.connect");
+      l         let server = await device.gatt.connect();
 
                 let rxService = await server.getPrimaryService(0x180F);
                 let rxCharacteristic = await rxService.getCharacteristic(0x2A19);
