@@ -60,7 +60,7 @@
   </head>
   <body>
     <div class="container">
-        <h1>Wattmeter Battery Status V2.c</h1>
+        <h1>Wattmeter Battery Status V2.d</h1>
         
         <div id="battery-connect-container" class="container" style="padding-bottom: 20px">
             <button id="battery-connect" class="btn btn-primary">Connect</button>
@@ -161,9 +161,10 @@
                 let rxCharacteristic = await rxService.getCharacteristic(0x2A19);
 
                 console.log("txService");
-                let txService = await server.getPrimaryService(0x180F);
-                let txCharacteristic = await txService.getCharacteristic(0x2A19);
-                await txCharacteristic.startNotifications();
+                //let txService = await server.getPrimaryService(0x180F);
+                //let txCharacteristic = await txService.getCharacteristic(0x2A19);
+                console.log("startNotifications");
+                //await txCharacteristic.startNotifications();
 
                 console.log("addEventListener");
                 let requestType = '';
