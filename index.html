@@ -54,7 +54,7 @@
   </head>
   <body>
     <div class="container">
-        <h1>Wattmeter Battery Status V2.g</h1>
+        <h1>Wattmeter Battery Status V2.h</h1>
         
         <div id="battery-connect-container" class="container" style="padding-bottom: 20px">
             <button id="battery-connect" class="btn btn-primary">Connect</button>
@@ -355,7 +355,7 @@
 //                        await getLevels();
 //                        await requestReady();
                           const level = await rxCharacteristic.readValue();
-                          console.log('> Battery Level is ' + $bc.value.getUint8(0) + '%');
+                          console.log('> Battery Level is ' + value.getUint8(0) + '%');
 //                          console.log('> Battery Level is ' + level + '%');
                     } catch(err) {
                         console.error(err);
