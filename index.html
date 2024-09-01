@@ -190,12 +190,12 @@
                             const maxCurrent = Math.max(...currentArray);
                             const minCurrent = Math.min(...currentArray);
 
-                            // if there is an abruptly current change, we need to adapt average values faster
+                            // if there is an abrupt current change, we need to adapt average values faster
                             if (maxCurrent - minCurrent >= 3) {
                               currentArray.splice(0,7);
                             }
 
-                            // create current Array for smooth out charge state estimation
+                            // create current Array to smooth out charge state estimation
                             currentArray.push(current);
                             if ( currentArray.length > 10 ) {
                                 currentArray.shift();
@@ -285,7 +285,7 @@
 
                     requestType = '';
                 });
-
+*/
                 let requestReady = async function() {
                     while(true) {
                         if(requestType === '') {
@@ -294,7 +294,7 @@
                         await timeout(250);
                     }
                 };
-
+/*
                 let getTemps = async function () {
                     const buffer = new ArrayBuffer(8);
                     const view = new DataView(buffer);
@@ -343,6 +343,15 @@
                     }
                 };
 */
+                let getBatteryLevel = async function () {
+                    const buffer = new ArrayBuffer(1);
+                    const view = new DataView(buffer);
+
+                    requestType = 'getBatteryLevel';
+                    const level = await rxCharacteristic.readValue();
+                };
+
+
                 $bcc.parentNode.removeChild($bcc);
                 $msg.style.display = 'none';
        
@@ -353,9 +362,9 @@
 //                        await getTemps();
 //                        await requestReady();
 //                        await getLevels();
-//                        await requestReady();
-                          const level = await rxCharacteristic.readValue();
-                          console.log('> Battery Level is ' + value.getUint8(0) + '%');
+                        await requestReady();
+                        await getBatteryLevel();
+                        console.log('> Battery Level is ' + value.getUint8(0) + '%');
 //                          console.log('> Battery Level is ' + level + '%');
                     } catch(err) {
                         console.error(err);
