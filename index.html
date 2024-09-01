@@ -129,7 +129,7 @@
         $bc.onclick = (e) => {
             e.preventDefault();
             console.log("Requesting Bluetooth Device with battery_service");
-            
+/*            
             (async function() {
                 let device;
                 if(navigator.userAgent.toLowerCase().includes('bluefy')) {
@@ -281,7 +281,7 @@
 
                     requestType = '';
                 });
-*/
+
                 let requestReady = async function() {
                     while(true) {
                         if(requestType === '') {
@@ -290,7 +290,7 @@
                         await timeout(250);
                     }
                 };
-/*
+
                 let getTemps = async function () {
                     const buffer = new ArrayBuffer(8);
                     const view = new DataView(buffer);
@@ -340,10 +340,36 @@ let getLevels = async function () {
                         await rxCharacteristic.writeValue(buffer);
                     }
                 };
-*/
+
                 $bcc.parentNode.removeChild($bcc);
                 $msg.style.display = 'none';
+*/
+                async function onButtonClick() {
+                  try {
+                    log('Requesting Bluetooth Device...');
+                    const device = await navigator.bluetooth.requestDevice({
+                        filters: [{services: ['battery_service']}]});
+                
+                    log('Connecting to GATT Server...');
+                    const server = await device.gatt.connect();
+                
+                    log('Getting Battery Service...');
+                    const service = await server.getPrimaryService('battery_service');
+                
+                    log('Getting Battery Level Characteristic...');
+                    const characteristic = await service.getCharacteristic('battery_level');
+                
+                    log('Reading Battery Level...');
+                    const value = await characteristic.readValue();
+                
+                    log('> Battery Level is ' + value.getUint8(0) + '%');
+                  } catch(error) {
+                    log('Argh! ' + error);
+                  }
+                }
 
+
+              
                 while(true) {
                     try {
                         console.log('Starting battery read');
