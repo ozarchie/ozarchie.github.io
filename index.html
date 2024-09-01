@@ -125,11 +125,11 @@
         
         return `${pad(d.getFullYear(),4)}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
         }
-        
+ /*         
         $bc.onclick = (e) => {
             e.preventDefault();
             console.log("Requesting Bluetooth Device with battery_service");
-/*            
+          
             (async function() {
                 let device;
                 if(navigator.userAgent.toLowerCase().includes('bluefy')) {
@@ -344,30 +344,7 @@ let getLevels = async function () {
                 $bcc.parentNode.removeChild($bcc);
                 $msg.style.display = 'none';
 
-                async function onButtonClick() {
-                  */
-                  try {
-                    log('Requesting Bluetooth Device...');
-                    const device = await navigator.bluetooth.requestDevice({
-                        filters: [{services: ['battery_service']}]});
-                
-                    log('Connecting to GATT Server...');
-                    const server = await device.gatt.connect();
-                
-                    log('Getting Battery Service...');
-                    const service = await server.getPrimaryService('battery_service');
-                
-                    log('Getting Battery Level Characteristic...');
-                    const characteristic = await service.getCharacteristic('battery_level');
-                
-                    log('Reading Battery Level...');
-                    const value = await characteristic.readValue();
-                
-                    log('> Battery Level is ' + value.getUint8(0) + '%');
-                  } catch(error) {
-                    log('Argh! ' + error);
-                  }
-                }
+
 
 
 /*              
@@ -397,6 +374,34 @@ let getLevels = async function () {
             });
         };
       */
+
+                async function onButtonClick() {
+                  */
+                  try {
+                    log('Requesting Bluetooth Device...');
+                    const device = await navigator.bluetooth.requestDevice({
+                        filters: [{services: ['battery_service']}]});
+                
+                    log('Connecting to GATT Server...');
+                    const server = await device.gatt.connect();
+                
+                    log('Getting Battery Service...');
+                    const service = await server.getPrimaryService('battery_service');
+                
+                    log('Getting Battery Level Characteristic...');
+                    const characteristic = await service.getCharacteristic('battery_level');
+                
+                    log('Reading Battery Level...');
+                    const value = await characteristic.readValue();
+                
+                    log('> Battery Level is ' + value.getUint8(0) + '%');
+                  } catch(error) {
+                    log('Argh! ' + error);
+                  }
+                }
+
+
+      
     </script>
   </body>
 </html>
