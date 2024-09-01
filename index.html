@@ -128,34 +128,34 @@
         
         $bc.onclick = (e) => {
             e.preventDefault();
-            console.log("checking bluetooth for battery_service");
+            console.log("Requesting Bluetooth Device with battery_service");
             
             (async function() {
                 let device;
                 if(navigator.userAgent.toLowerCase().includes('bluefy')) {
-                    console.log("bluefy");
+                    console.log(".. using bluefy");
                     device = await navigator.bluetooth.requestDevice({
-                        filters: [{services: [0x180F]}]
+                        filters: [{services: ['battery_service']}]
                     });
                 } else {
-                    console.log("not bluefy");
+                    console.log(".. not using bluefy");
                     device = await navigator.bluetooth.requestDevice({
-                        filters: [{services: [0x180F]}],
-                        optionalServices: [0x180F]
+                        filters: [{services: ['battery_service']}],
+                        optionalServices: ['battery_service']
                     });
                 }
-                console.log("gatt.connect");
+                console.log("Connecting to GATT Server...");
                 let server = await device.gatt.connect();
 
                 console.log("rxService");
-                let rxService = await server.getPrimaryService(0x180F);
-                let rxCharacteristic = await rxService.getCharacteristic(0x2A19);
-
+                let rxService = await server.getPrimaryService('battery_service');
+                let rxCharacteristic = await rxService.getCharacteristic('battery_level');
+/*
                 console.log("txService");
-                //let txService = await server.getPrimaryService(0x180F);
-                //let txCharacteristic = await txService.getCharacteristic(0x2A19);
+                let txService = await server.getPrimaryService(0x180F);
+                let txCharacteristic = await txService.getCharacteristic(0x2A19);
                 console.log("startNotifications");
-                //await txCharacteristic.startNotifications();
+                await txCharacteristic.startNotifications();
 
                 console.log("addEventListener");
                 let requestType = '';
@@ -281,7 +281,7 @@
 
                     requestType = '';
                 });
-
+*/
                 let requestReady = async function() {
                     while(true) {
                         if(requestType === '') {
@@ -290,7 +290,7 @@
                         await timeout(250);
                     }
                 };
-
+/*
                 let getTemps = async function () {
                     const buffer = new ArrayBuffer(8);
                     const view = new DataView(buffer);
@@ -306,8 +306,9 @@
                         await rxCharacteristic.writeValue(buffer);
                     }
                 };
-
-                let getLevels = async function () {
+*/
+/*
+let getLevels = async function () {
                     const buffer = new ArrayBuffer(8);
                     const view = new DataView(buffer);
                     view.setUint16(0, 0x3003);
@@ -322,7 +323,8 @@
                         await rxCharacteristic.writeValue(buffer);
                     }
                 };
-
+*/
+/*
                 let getCellVolts = async function () {
                     const buffer = new ArrayBuffer(8);
                     const view = new DataView(buffer);
@@ -338,28 +340,28 @@
                         await rxCharacteristic.writeValue(buffer);
                     }
                 };
-
+*/
                 $bcc.parentNode.removeChild($bcc);
                 $msg.style.display = 'none';
 
                 while(true) {
                     try {
                         console.log('Starting battery read');
-                        await requestReady();
-                        await getTemps();
-                        await requestReady();
-                        await getLevels();
-                        await requestReady();
-                        await getCellVolts();
+//                        await requestReady();
+//                        await getTemps();
+//                        await requestReady();
+//                        await getLevels();
+//                        await requestReady();
+//                        await getCellVolts();
+                          const value = await characteristic.readValue();
+                          log('> Battery Level is ' + value.getUint8(0) + '%');
                     } catch(err) {
                         console.error(err);
                         $msg.style.display = 'block';
                         $msg.innerHTML = err;
                     }
-
                     await timeout(3000);
                 }
-
             })().catch((err) => {
                 console.error(err);
                 $msg.style.display = 'block';
