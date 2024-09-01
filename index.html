@@ -60,6 +60,7 @@
             <button id="battery-connect" class="btn btn-primary">Connect</button>
             <div class="text-contrast">(Chrome only)</div>
         </div>
+
         <div class="container">
             <div id="myProgress">
                 <span>Charge Level</span>
@@ -105,8 +106,10 @@
             statisticsArray = [];
         }
         let date = Date.now();
+
         let $bcc = document.getElementById('battery-connect-container');
         let $bc = document.getElementById('battery-connect');
+
         let $tf = document.getElementById('temperatures-form');
         // let $tfC = document.getElementById('temperaturesC-form');
         let $vf = document.getElementById('volt-form');
@@ -150,6 +153,7 @@
                 console.log("rxService");
                 let rxService = await server.getPrimaryService('battery_service');
                 let rxCharacteristic = await rxService.getCharacteristic('battery_level');
+
 /*
                 console.log("txService");
                 let txService = await server.getPrimaryService(0x180F);
@@ -157,7 +161,7 @@
                 console.log("startNotifications");
                 await txCharacteristic.startNotifications();
 
-                console.log("addEventListener");
+                console.log("Get notification of value change");
                 let requestType = '';
                 txCharacteristic.addEventListener('characteristicvaluechanged', (event) => {
                     try {
@@ -170,7 +174,7 @@
                             let temps = [];
                             let tempsC = [];
                             for(let x=1; x <= numSensors; x++) {
-                                // console.log('sensors', payload.getInt16(x*2));
+                                console.log('sensors', payload.getInt16(x*2));
                                 let tempF = (payload.getInt16(x*2) / 10) * (9/5) + 32;
                                 let tempC = (payload.getInt16(x*2) / 10);
                                 temps.push(fmt.format(tempF));
@@ -178,10 +182,10 @@
                             }
                             $tf.value = tempsC.join(', ') + ' °C / ' + temps.join(', ') + ' °F';
                         } else if(requestType === 'getLevels') {
-                            let current = payload.getInt16(0) / 100;
-                            let volt = payload.getUint16(2) / 10;
+                            let current     = payload.getInt16(0) / 100;
+                            let volt        = payload.getUint16(2) / 10;
                             let chargeLevel = payload.getUint32(4) / 1000;
-                            let capacity = payload.getUint32(8) / 1000;
+                            let capacity    = payload.getUint32(8) / 1000;
 
                             const maxCurrent = Math.max(...currentArray);
                             const minCurrent = Math.min(...currentArray);
@@ -306,9 +310,8 @@
                         await rxCharacteristic.writeValue(buffer);
                     }
                 };
-*/
-/*
-let getLevels = async function () {
+
+                let getLevels = async function () {
                     const buffer = new ArrayBuffer(8);
                     const view = new DataView(buffer);
                     view.setUint16(0, 0x3003);
@@ -323,8 +326,7 @@ let getLevels = async function () {
                         await rxCharacteristic.writeValue(buffer);
                     }
                 };
-*/
-/*
+
                 let getCellVolts = async function () {
                     const buffer = new ArrayBuffer(8);
                     const view = new DataView(buffer);
