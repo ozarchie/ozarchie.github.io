@@ -353,11 +353,9 @@ let getLevels = async function () {
 //                        await getLevels();
 //                        await requestReady();
 //                        await getCellVolts();
-                          const buffer = new ArrayBuffer(1);
-                          const view = new DataView(buffer);
-                          const value = await rxCharacteristic.readValue(buffer);
+                          const level = await rxCharacteristic.readValue();
 //                          console.log('> Battery Level is ' + value.getUint8(0) + '%');
-                          console.log('> Battery Level is ' + value + '%');
+                          console.log('> Battery Level is ' + level + '%');
                     } catch(err) {
                         console.error(err);
                         $msg.style.display = 'block';
