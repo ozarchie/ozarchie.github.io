@@ -13,17 +13,14 @@
         body {
             background-color: #484848;
         }
-
         h1 {
             color: white;
             text-align: center;
             font-weight: bold;
         }
-
         .text-contrast {
             color: white;
         }
-
         .form-control:disabled, .form-control[readonly] {
             background-color: #fff;
             opacity: 1;
@@ -39,11 +36,9 @@
             border-radius: 5px;
             margin-bottom: 15px;
         }
-
         #myProgress > span {
             padding: 5px;
         }
-
         #myBar {
             width: 0%;
             padding: 10px;
@@ -52,7 +47,6 @@
             color: white;
             border-radius: 0px 0px 0px 5px;
         }
-
         a {
             color: #03a0fd
         }
@@ -70,8 +64,7 @@
             <div id="myProgress">
                 <span>Charge Level</span>
                 <div id="myBar">-</div>
-            </div>
-            
+            </div>            
             <div class="input-group mb-3">
                 <span class="input-group-text" id="watts">Watts</span>
                 <input type="text" class="form-control" id="watts-form" aria-describedby="watts" disabled="true">
@@ -97,7 +90,6 @@
                 <input type="text" class="form-control" id="cellvolts-form" aria-describedby="cellvolts" disabled="true">
             </div>
             <div class="alert alert-primary" role="alert" id="msgalert" style="display: none"></div>
-
             <div id="listContainer"></div>
         </div>
     </div>
@@ -106,7 +98,6 @@
         function timeout(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
         }
-
         const fmt = new Intl.NumberFormat('en-US', { maximumSignificantDigits: 4 });
         let currentArray = [];
         let statisticsArray = JSON.parse(localStorage.getItem('statisticsArray'));
