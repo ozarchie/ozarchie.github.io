@@ -54,7 +54,7 @@
   </head>
   <body>
     <div class="container">
-        <h1>Wattmeter Battery Status V2.e</h1>
+        <h1>Wattmeter Battery Status V2.f</h1>
         
         <div id="battery-connect-container" class="container" style="padding-bottom: 20px">
             <button id="battery-connect" class="btn btn-primary">Connect</button>
@@ -128,11 +128,11 @@
         
         return `${pad(d.getFullYear(),4)}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
         }
-        
+          
         $bc.onclick = (e) => {
             e.preventDefault();
             console.log("Requesting Bluetooth Device with battery_service");
-            
+ /*         
             (async function() {
                 let device;
                 if(navigator.userAgent.toLowerCase().includes('bluefy')) {
@@ -285,7 +285,7 @@
 
                     requestType = '';
                 });
-*/
+
                 let requestReady = async function() {
                     while(true) {
                         if(requestType === '') {
@@ -294,7 +294,7 @@
                         await timeout(250);
                     }
                 };
-/*
+
                 let getTemps = async function () {
                     const buffer = new ArrayBuffer(8);
                     const view = new DataView(buffer);
@@ -342,10 +342,14 @@
                         await rxCharacteristic.writeValue(buffer);
                     }
                 };
-*/
+
                 $bcc.parentNode.removeChild($bcc);
                 $msg.style.display = 'none';
 
+
+
+
+/*              
                 while(true) {
                     try {
                         console.log('Starting battery read');
@@ -354,9 +358,9 @@
 //                        await requestReady();
 //                        await getLevels();
 //                        await requestReady();
-//                        await getCellVolts();
-                          const value = await characteristic.readValue();
-                          log('> Battery Level is ' + value.getUint8(0) + '%');
+                          const level = await rxCharacteristic.readValue();
+                          console.log('> Battery Level is ' + rxCharacteristic.value.getUint8(0) + '%');
+//                          console.log('> Battery Level is ' + level + '%');
                     } catch(err) {
                         console.error(err);
                         $msg.style.display = 'block';
@@ -364,12 +368,42 @@
                     }
                     await timeout(3000);
                 }
+
             })().catch((err) => {
                 console.error(err);
                 $msg.style.display = 'block';
                 $msg.innerHTML = err;
             });
         };
+      */
+
+
+                  try {
+                    log('Requesting Bluetooth Device...');
+                    const device = await navigator.bluetooth.requestDevice({
+                        filters: [{services: ['battery_service']}]});
+                
+                    log('Connecting to GATT Server...');
+                    const server = await device.gatt.connect();
+                
+                    log('Getting Battery Service...');
+                    const service = await server.getPrimaryService('battery_service');
+                
+                    log('Getting Battery Level Characteristic...');
+                    const characteristic = await service.getCharacteristic('battery_level');
+                
+                    log('Reading Battery Level...');
+                    const value = await characteristic.readValue();
+                
+                    log('> Battery Level is ' + value.getUint8(0) + '%');
+                  } catch(error) {
+                    log('Argh! ' + error);
+                  }
+
+        };
+
+
+      
     </script>
   </body>
 </html>
