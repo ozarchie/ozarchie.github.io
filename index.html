@@ -141,12 +141,13 @@
             (async function() {
                 let device;
                 if(navigator.userAgent.toLowerCase().includes('bluefy')) {
-                    console.log('bluefy');
+                    console.log("bluefy");
                     device = await navigator.bluetooth.requestDevice({
                         filters: [{services: [0x180F]}]
                     });
                 } else {
                     device = await navigator.bluetooth.requestDevice({
+                        console.log("not bluefy");
                         filters: [{services: [0x180F]}],
                         optionalServices: [0x180F]
                     });
