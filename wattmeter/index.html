@@ -128,25 +128,40 @@
         
         return `${pad(d.getFullYear(),4)}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
         }
-          
+
+        let BToptions = {
+            filters: [
+                { services: ["battery_service"] } //,
+//                { services: [0x1802, 0x1803] },
+//                { services: ["c48e6067-5295-48d3-8d5c-0395f61792b1"] },
+//                { name: "ExampleName" },
+//                { namePrefix: "Prefix" },
+            ]   // ,
+//            optionalServices: [
+//               { services: ["battery_service"] },
+//                { services: [0x1802, 0x1803] }
+//            ]
+        };
+        
         $bc.onclick = (e) => {
             e.preventDefault();
-            console.log("Requesting Bluetooth Device with battery_service");
-       
+            console.log("Checking Bluetooth Availability");
+            let BTAvailable = navigator.bluetooth.getAvailability();
+            if (BTAvailable) {
+                console.log("Bluetooth is available");
+
+            console.log("Requesting Bluetooth Device with battery_service");      
             (async function() {
                 let device;
                 if(navigator.userAgent.toLowerCase().includes('bluefy')) {
                     console.log(".. using bluefy");
-                    device = await navigator.bluetooth.requestDevice({
-                        filters: [{services: ['battery_service']}]
-                    });
+                    device = await navigator.bluetooth.requestDevice(BToptions);
                 } else {
                     console.log(".. not using bluefy");
-                    device = await navigator.bluetooth.requestDevice({
-                        filters: [{services: ['battery_service']}],
-                        optionalServices: ['battery_service']
-                    });
+                    device = await navigator.bluetooth.requestDevice(BToptions);
                 }
+                console.log(`Name: ${device.name}`);
+
                 console.log("Connecting to GATT Server...");
                 let server = await device.gatt.connect();
 
@@ -154,7 +169,6 @@
                 let rxService = await server.getPrimaryService('battery_service');
                 let rxCharacteristic = await rxService.getCharacteristic('battery_level');
                 let requestType = '';
-
 /*
                 console.log("txService");
                 let txService = await server.getPrimaryService(0x180F);
@@ -382,7 +396,14 @@
                 $msg.style.display = 'block';
                 $msg.innerHTML = err;
             });
-        };    
+
+
+        } else {
+                console.log("Bluetooth is not supported on this device");
+        } 
+
+        };   
+        
     </script>
   </body>
 </html>
