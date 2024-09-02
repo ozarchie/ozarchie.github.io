@@ -350,8 +350,9 @@
 
                     requestType = 'getBatteryLevel';
                     const level = await rxCharacteristic.readValue();
+                    console.log('> Battery Level is ' + level + '%');
+                    $lf.value = level;
                 };
-
 
                 $bcc.parentNode.removeChild($bcc);
                 $msg.style.display = 'none';
@@ -365,7 +366,7 @@
 //                        await getLevels();
                         await requestReady();
                         await getBatteryLevel();
-                        console.log('> Battery Level is ' + value.getUint8(0) + '%');
+//                        console.log('> Battery Level is ' + $bcc.value.getUint8(0) + '%');
 //                          console.log('> Battery Level is ' + level + '%');
                     } catch(err) {
                         console.error(err);
