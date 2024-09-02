@@ -368,7 +368,7 @@
 //                        await getLevels();
 //                        await requestReady();
 //                        await getBatteryLevel();
-                        await rxCharacteristic.readValue();
+                        let value = await rxCharacteristic.readValue();
                         let batteryLevel = value.getUint8(0);
                         console.log('> Battery Level is ' + batteryLevel + '%');
                         $lf.value = batteryLevel;
@@ -380,7 +380,7 @@
                     await timeout(3000);
                 }
 
-            })().catch((err) => {
+            })().catch((err) => {           // (async function(){
                 console.error(err);
                 $msg.style.display = 'block';
                 $msg.innerHTML = err;
