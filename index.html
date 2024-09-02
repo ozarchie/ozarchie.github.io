@@ -349,8 +349,8 @@
                     const view = new DataView(buffer);
 
                     requestType = 'getBatteryLevel';
-                    await rxCharacteristic.readValue();
-                    const batteryLevel = value.getUint8(0);
+                    const batteryLevel = await rxCharacteristic.readValue();
+                    //const batteryLevel = value.getUint8(0);
                     console.log('> Battery Level is ' + batteryLevel + '%');
                     $lf.value = batteryLevel;
                 };
