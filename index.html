@@ -153,6 +153,7 @@
                 console.log("Service, Characteristic");
                 let rxService = await server.getPrimaryService('battery_service');
                 let rxCharacteristic = await rxService.getCharacteristic('battery_level');
+                let requestType = '';
 
 /*
                 console.log("txService");
