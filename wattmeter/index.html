@@ -54,7 +54,7 @@
   </head>
   <body>
     <div class="container">
-        <h1>Wattmeter Battery Status V2.j</h1>
+        <h1>Wattmeter Battery Status V2.k</h1>
         
         <div id="battery-connect-container" class="container" style="padding-bottom: 20px">
             <button id="battery-connect" class="btn btn-primary">Connect</button>
@@ -343,7 +343,7 @@
                         await rxCharacteristic.writeValue(buffer);
                     }
                 };
-*/
+
                 let getBatteryLevel = async function () {
                     const buffer = new ArrayBuffer(1);
                     const view = new DataView(buffer);
@@ -355,7 +355,7 @@
                     $lf.value = batteryLevel;
                     requestType = '';
                 };
-
+*/
                 $bcc.parentNode.removeChild($bcc);
                 $msg.style.display = 'none';
        
@@ -366,10 +366,12 @@
 //                        await getTemps();
 //                        await requestReady();
 //                        await getLevels();
-                        await requestReady();
-                        await getBatteryLevel();
-//                        console.log('> Battery Level is ' + $bcc.value.getUint8(0) + '%');
-//                          console.log('> Battery Level is ' + level + '%');
+//                        await requestReady();
+//                        await getBatteryLevel();
+                        await rxCharacteristic.readValue();
+                        let batteryLevel = value.getUint8(0);
+                        console.log('> Battery Level is ' + batteryLevel + '%');
+                        $lf.value = batteryLevel;
                     } catch(err) {
                         console.error(err);
                         $msg.style.display = 'block';
