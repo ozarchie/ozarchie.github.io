@@ -381,7 +381,7 @@
                     console.log('> Battery Level is ' + batteryLevel + '%');
                     $lf.value = batteryLevel;
                     requestType = '';
-                    let chargePercent = batteryLevel/100;
+                    let chargePercent = batteryLevel;
                     elem.style.width = fmt.format(chargePercent) + "%";
                     elem.innerHTML = fmt.format(chargePercent) + "%";
                 };
