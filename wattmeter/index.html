@@ -395,7 +395,8 @@
 //                        await getLevels();
 //                        await requestReady();
 //                        await getBatteryLevel();
-                        let value = await rxCharacteristic.readValue();
+                        await requestReady();
+                        let value = rxCharacteristic.readValue();
                         let batteryLevel = value.getUint8(0);
                         console.log('> Battery Level is ' + batteryLevel + '%');
                         $lf.value = batteryLevel;
