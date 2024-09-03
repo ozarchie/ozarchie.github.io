@@ -54,7 +54,7 @@
   </head>
   <body>
     <div class="container">
-        <h1>Wattmeter Battery Status V2.l</h1>
+        <h1>Wattmeter Battery Status V2.m</h1>
         
         <div id="battery-connect-container" class="container" style="padding-bottom: 20px">
             <button id="battery-connect" class="btn btn-primary">Connect</button>
@@ -167,9 +167,25 @@
 
                 console.log("Service, Characteristic");
                 let rxService = await server.getPrimaryService('battery_service');
+                console.log('Service' + rxService);
+
                 let rxCharacteristic = await rxService.getCharacteristic('battery_level');
+                console.log('Characteristic' + rxCharacteristic);
+                                
                 let requestType = '';
-/*
+
+                log('> Characteristic UUID:  ' + rxCharacteristic.uuid);
+                log('> Broadcast:            ' + rxCharacteristic.properties.broadcast);
+                log('> Read:                 ' + rxCharacteristic.properties.read);
+                log('> Write w/o response:   ' + rxCharacteristic.properties.writeWithoutResponse);
+                log('> Write:                ' + rxCharacteristic.properties.write);
+                log('> Notify:               ' + rxCharacteristic.properties.notify);
+                log('> Indicate:             ' + rxCharacteristic.properties.indicate);
+                log('> Signed Write:         ' + rxCharacteristic.properties.authenticatedSignedWrites);
+                log('> Queued Write:         ' + rxCharacteristic.properties.reliableWrite);
+                log('> Writable Auxiliaries: ' + rxCharacteristic.properties.writableAuxiliaries);
+
+                /*
                 console.log("txService");
                 let txService = await server.getPrimaryService(0x180F);
                 let txCharacteristic = await txService.getCharacteristic(0x2A19);
@@ -369,17 +385,6 @@
 */
                 $bcc.parentNode.removeChild($bcc);
                 $msg.style.display = 'none';
-                
-                log('> Characteristic UUID:  ' + rxCharacteristic.uuid);
-                log('> Broadcast:            ' + rxCharacteristic.properties.broadcast);
-                log('> Read:                 ' + rxCharacteristic.properties.read);
-                log('> Write w/o response:   ' + rxCharacteristic.properties.writeWithoutResponse);
-                log('> Write:                ' + rxCharacteristic.properties.write);
-                log('> Notify:               ' + rxCharacteristic.properties.notify);
-                log('> Indicate:             ' + rxCharacteristic.properties.indicate);
-                log('> Signed Write:         ' + rxCharacteristic.properties.authenticatedSignedWrites);
-                log('> Queued Write:         ' + rxCharacteristic.properties.reliableWrite);
-                log('> Writable Auxiliaries: ' + rxCharacteristic.properties.writableAuxiliaries);
 
                 while(true) {
                     try {
