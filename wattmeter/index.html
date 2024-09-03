@@ -160,20 +160,12 @@
                     console.log(".. not using bluefy");
                     device = await navigator.bluetooth.requestDevice(BToptions);
                 }
-                console.log(`Name: ${device.name}`);
-
                 console.log("Connecting to GATT Server...");
                 let server = await device.gatt.connect();
-
-                console.log("Service, Characteristic");
                 let rxService = await server.getPrimaryService('battery_service');
-                console.log('Service' + rxService);
-
                 let rxCharacteristic = await rxService.getCharacteristic('battery_level');
-                console.log('Characteristic' + rxCharacteristic);
-                                
-                let requestType = '';
-
+                console.log('Name                    ' + device.name);
+                console.log('Service                 ' + rxService.uuid);
                 console.log('> Characteristic UUID:  ' + rxCharacteristic.uuid);
                 console.log('> Broadcast:            ' + rxCharacteristic.properties.broadcast);
                 console.log('> Read:                 ' + rxCharacteristic.properties.read);
@@ -185,6 +177,7 @@
                 console.log('> Queued Write:         ' + rxCharacteristic.properties.reliableWrite);
                 console.log('> Writable Auxiliaries: ' + rxCharacteristic.properties.writableAuxiliaries);
 
+                let requestType = '';
                 /*
                 console.log("txService");
                 let txService = await server.getPrimaryService(0x180F);
