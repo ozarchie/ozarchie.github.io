@@ -54,7 +54,7 @@
   </head>
   <body>
     <div class="container">
-        <h1>Wattmeter Battery Status V2.m</h1>
+        <h1>Wattmeter Battery Status V2.n</h1>
         
         <div id="battery-connect-container" class="container" style="padding-bottom: 20px">
             <button id="battery-connect" class="btn btn-primary">Connect</button>
@@ -381,6 +381,9 @@
                     console.log('> Battery Level is ' + batteryLevel + '%');
                     $lf.value = batteryLevel;
                     requestType = '';
+                    let chargePercent = batteryLevel/100;
+                    elem.style.width = fmt.format(chargePercent) + "%";
+                    elem.innerHTML = fmt.format(chargePercent) + "%";
                 };
 
                 $bcc.parentNode.removeChild($bcc);
