@@ -369,7 +369,18 @@
 */
                 $bcc.parentNode.removeChild($bcc);
                 $msg.style.display = 'none';
-       
+                
+                log('> Characteristic UUID:  ' + rxCharacteristic.uuid);
+                log('> Broadcast:            ' + rxCharacteristic.properties.broadcast);
+                log('> Read:                 ' + rxCharacteristic.properties.read);
+                log('> Write w/o response:   ' + rxCharacteristic.properties.writeWithoutResponse);
+                log('> Write:                ' + rxCharacteristic.properties.write);
+                log('> Notify:               ' + rxCharacteristic.properties.notify);
+                log('> Indicate:             ' + rxCharacteristic.properties.indicate);
+                log('> Signed Write:         ' + rxCharacteristic.properties.authenticatedSignedWrites);
+                log('> Queued Write:         ' + rxCharacteristic.properties.reliableWrite);
+                log('> Writable Auxiliaries: ' + rxCharacteristic.properties.writableAuxiliaries);
+
                 while(true) {
                     try {
                         console.log('Starting battery read');
